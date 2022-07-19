@@ -1,0 +1,52 @@
+-- im not bright enough so if you change dotween at any point during the farm, itl mess up, also
+--doesnt have support for dying, AND if u fuck with the game at all.
+--ill give this to liok and his brains can fix it :thumbsup:
+if _G.togglefishfarm == true then
+local player = game.Players.LocalPlayer
+local char = player.Character
+local humrp = char.HumanoidRootPart
+local debris = game.Workspace.Debree
+local cf = nil
+repeat wait(0) until char:FindFirstChild("Fishing Rod")
+wait(1)
+if _G.dotween == false then
+cf = humrp.CFrame * CFrame.new(0,.5,0)
+else
+cf = CFrame.new(678.079224, 286.200043, -2749.79907, 0.999709964, 0.000106552005, 0.0240837652, -0.000110346053, 1, 0.000156206588, -0.0240837485, -0.000158818817, 0.999709904)
+end
+local tween
+if _G.dotween == false then
+tween = game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(1), {CFrame = cf})
+else
+tween = game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(10,Enum.EasingStyle.Linear,Enum.EasingDirection.Out), {CFrame = cf})
+end
+tween:Play()
+tween.Completed:Wait(0)
+repeat wait(0)
+    if _G.togglefishfarm == true then
+
+local tween = game:GetService("TweenService"):Create(game.Players.LocalPlayer.Character.HumanoidRootPart, TweenInfo.new(1), {CFrame = cf})                    
+tween:Play()
+tween.Completed:Wait(0)
+wait(.2)
+char["Fishing Rod"]:Activate()
+repeat wait(0) until game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("Fish_Minigame")
+
+repeat wait(0) 
+    if game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("Fish_Minigame") then
+    game:GetService("Players").LocalPlayer.PlayerGui["Fish_Minigame"].Holder.LocalScript.Value.Value = 100
+    end
+until not game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("Fish_Minigame")
+wait(1.7)
+for i, v in pairs(debris:GetChildren()) do
+    if v.Name == "Ouwfish" or v.Name == "Ouwfwesh" or v.Name == "Ouwfash" then
+       
+        if (v.Center.Position - humrp.Position).magnitude <= 10 then
+           
+            fireproximityprompt(v.Center.Take_Fish)
+        end
+    end
+end
+end
+until _G.togglefishfarm == false
+end
